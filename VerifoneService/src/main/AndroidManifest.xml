@@ -3,15 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="io.cloudwalk.pos.systemservice">
 
+    <uses-feature android:name="android.hardware.screen.portrait" />
+
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SystemService"
+        android:theme="@style/Theme.SystemService.NoActionBar"
         tools:targetApi="31" />
 
 </manifest>
