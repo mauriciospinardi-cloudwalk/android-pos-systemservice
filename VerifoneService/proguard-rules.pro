@@ -5,6 +5,18 @@
 # For more details, see
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
+-assumenosideeffects class android.util.Log {
+    public static int d(...);
+    public static int e(...);
+#   public static java.lang.String getStackTraceString(...);
+    public static int i(...);
+    public static boolean isLoggable(java.lang.String, int);
+    public static int println(...);
+    public static int v(...);
+    public static int w(...);
+    public static int wtf(...);
+}
+
 # If your project uses WebView with JS, uncomment the following
 # and specify the fully qualified class name to the JavaScript interface
 # class:
