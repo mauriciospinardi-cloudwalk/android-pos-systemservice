@@ -1,0 +1,75 @@
+plugins {
+    id 'com.android.library'
+}
+
+apply plugin: 'maven-publish'
+
+def groupId = 'io.cloudwalk.pos'
+def artifactId = 'pinpadlibrary'
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        minSdk 22
+        targetSdk 32
+        versionCode 1
+        versionName "0.0.1"
+
+        buildConfigField 'String', 'PACKAGE_ID', "\"${groupId}.${artifactId}\""
+        buildConfigField 'int', 'VERSION_CODE', "${versionCode}"
+        buildConfigField 'String', 'VERSION_NAME', "\"${versionName}\""
+
+        setProperty("archivesBaseName", "${groupId}.${artifactId}-$versionName-${getDate()}")
+
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            // Enables code shrinking and obfuscation.
+            minifyEnabled true
+
+            // Includes the default ProGuard rules files that are packaged with
+            // the Android Gradle plugin. To learn more, go to the section about
+            // R8 configuration files.
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'com.google.android.material:material:1.6.1'
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            library(MavenPublication) {
+                setGroupId groupId
+                setArtifactId artifactId
+                version android.defaultConfig.versionName
+
+                artifact bundleReleaseAar
+
+                pom.withXml {
+                    def dependenciesNode = asNode().appendNode('dependencies')
+                    configurations.implementation.allDependencies.each { dependency ->
+                        if (dependency.name != 'unspecified') {
+                            def dependencyNode = dependenciesNode.appendNode('dependency')
+                            dependencyNode.appendNode('groupId', dependency.group)
+                            dependencyNode.appendNode('artifactId', dependency.name)
+                            dependencyNode.appendNode('version', dependency.version)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

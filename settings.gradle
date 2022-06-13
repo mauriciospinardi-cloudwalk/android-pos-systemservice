@@ -15,4 +15,5 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "System Service"
+include ':SystemLibrary'
 include ':VerifoneService'
