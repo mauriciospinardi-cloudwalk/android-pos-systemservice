@@ -5,7 +5,7 @@ plugins {
 apply plugin: 'maven-publish'
 
 def groupId = 'io.cloudwalk.pos'
-def artifactId = 'pinpadlibrary'
+def artifactId = 'systemlibrary'
 
 android {
     compileSdk 32
@@ -40,6 +40,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    namespace 'io.cloudwalk.pos.systemlibrary'
 }
 
 dependencies {
